@@ -43,7 +43,7 @@ public class DbAihealue {
             Statement st = conn.createStatement();
             
             // suoritetaan komennot
-        String lause=("INSERT INTO Aihealue (nimi) VALUES ( '" + x + "');") ;       
+        String lause=("INSERT INTO Aihealue (nimi,sisalto) VALUES ( '" + x + "', '/viestiketjut?id=" + x + "');") ;       
         System.out.println("Running command >> " + lause);
         st.executeUpdate(lause);
             

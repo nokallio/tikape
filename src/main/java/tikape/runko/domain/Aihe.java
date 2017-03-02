@@ -15,10 +15,12 @@ public class Aihe {
     private String nimi;
     private String content;
 
+
     public Aihe(Integer id, String nimi, String sis) {
         this.id = id;
         this.nimi = nimi;
         this.content = sis;
+
     }
 
     public Integer getId() {

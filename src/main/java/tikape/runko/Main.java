@@ -5,6 +5,7 @@ import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+
 import tikape.runko.database.AiheDao;
 import tikape.runko.database.DbAihealue;
 import tikape.runko.domain.Aihe;
@@ -34,7 +35,7 @@ public class Main {
          get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             //Luodaan aihelista
-            ArrayList<String> aiheet = new ArrayList<>(); 
+
             ArrayList<Aihe> lista = new ArrayList<>();
             int i=1;
             //tÄYTETÄÄN LISTA
@@ -42,14 +43,16 @@ public class Main {
                 if(aiheDao.findOne(i)==null){
                     break;
             }
-            lista.add(aiheDao.findOne(i));
-            aiheet.add(lista.get(i-1).getNimi());
-            i++;
-            
+            lista.add(aiheDao.findOne(i)); 
+
+            i++;            
             };
             //Tehdään Hashmap
             map.put("viesti","Aiheet");
-            map.put("lista", aiheet);
+            map.put("lista", lista);
+            
+            
+
 
             
             return new ModelAndView(map, "index");
