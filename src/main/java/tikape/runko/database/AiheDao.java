@@ -4,27 +4,28 @@
  * and open the template in the editor.
  */
 package tikape.runko.database;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tikape.runko.domain.Opiskelija;
+import tikape.runko.domain.Aihe;
+/**
+ *
+ * @author Phoenix
+ */
+public class AiheDao implements Dao<Aihe ,Integer> {
+    private DbAihealue database;
 
-public class OpiskelijaDao implements Dao<Opiskelija, Integer> {
-
-    private Database database;
-
-    public OpiskelijaDao(Database database) {
+    public AiheDao(DbAihealue database) {
         this.database = database;
     }
 
     @Override
-    public Opiskelija findOne(Integer key) throws SQLException {
+    public Aihe findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Opiskelija WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -33,10 +34,11 @@ public class OpiskelijaDao implements Dao<Opiskelija, Integer> {
             return null;
         }
 
-        Integer id = rs.getInt("id");
+       Integer id = rs.getInt("id");
         String nimi = rs.getString("nimi");
+        String content = rs.getString("sisalto");
 
-        Opiskelija o = new Opiskelija(id, nimi);
+        Aihe o = new Aihe(id, nimi, content);
 
         rs.close();
         stmt.close();
@@ -46,30 +48,34 @@ public class OpiskelijaDao implements Dao<Opiskelija, Integer> {
     }
 
     @Override
-    public List<Opiskelija> findAll() throws SQLException {
+    public List<Aihe> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Opiskelija");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue");
 
         ResultSet rs = stmt.executeQuery();
-        List<Opiskelija> opiskelijat = new ArrayList<>();
+        List<Aihe> aiheet = new ArrayList<>();
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String nimi = rs.getString("nimi");
+            String content = rs.getString("sisalto");            
 
-            opiskelijat.add(new Opiskelija(id, nimi));
+            aiheet.add(new Aihe(id, nimi, content));
         }
 
         rs.close();
         stmt.close();
         connection.close();
 
-        return opiskelijat;
+        return aiheet;
     }
 
     @Override
     public void delete(Integer key) throws SQLException {
         // ei toteutettu
     }
-
+    
+    
+    
+   
 }

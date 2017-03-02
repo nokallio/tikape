@@ -4,11 +4,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database {
+public class DbViestiketju {
 
     private String databaseAddress;
 
-    public Database(String databaseAddress) throws ClassNotFoundException {
+    public DbViestiketju(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
     }
 
@@ -40,13 +40,15 @@ public class Database {
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
         //Luodaan Tietokannat
-        lista.add(" CREATE TABLE Viestiketju\n" + "(\n" + "id integer PRIMARY KEY,\n" + "otsikko varchar(200) NOT NULL,\n" + "aika timestamp NOT NULL,\n" + "nimimerkki varchar(50) NOT NULL,\n" + "aihealue_id integer NOT NULL,\n" + "FOREIGN KEY(aihealue_id) REFERENCES Aihealue(id)\n" + ");");
-        lista.add(" CREATE TABLE Aihealue\n" + "(\n" + "id integer PRIMARY KEY,\n" + "nimi varchar(50) NOT NULL,\n" + "sisalto varchar(999)  \n" + ");");
-        lista.add("CREATE TABLE Viesti\n" + "(\n" + "id integer PRIMARY KEY,\n" + "sisalto varchar(999),\n" + "aika timestamp NOT NULL,\n" + "nimimerkki varchar(50) NOT NULL,\n" + "viestiketju_id integer NOT NULL,\n" + "FOREIGN KEY(viestiketju_id) REFERENCES Viestiketju(id)\n" + ");");
-        //Lisätään arvoja
-        lista.add("INSERT INTO Aihealue  VALUES ('1', 'AIHE 1','SISAÄLTÖÄÄÄÄ');");
-        lista.add("INSERT INTO Aihealue  VALUES ('2', 'AIHE 2','TOISTA SISAÄLTÖÄ');");
-        lista.add("INSERT INTO Viesti(id,nimi,otsikko)  VALUES ('1', 'sisältöä','SISAÄLTÖÄÄÄÄ');");
+
+        lista.add(" CREATE TABLE Viestiketju (id integer PRIMARY KEY AUTOINCREMENT,otsikko varchar(200) NOT NULL,aika timestamp NOT NULL,nimimerkki varchar(50) NOT NULL,aihealue_id integer NOT NULL,FOREIGN KEY(aihealue_id) REFERENCES Aihealue(id));");
+         //Lisätään arvoja
+        lista.add("INSERT INTO Viestiketju (otsikko,nimimerkki) VALUES ( 'AIHE 2','TOISTA SISAÄLTÖÄ');");
+        lista.add("INSERT INTO Viestiketju (otsikko,nimimerkki) VALUES ( 'AIHE 2','TOISTA SISAÄLTÖÄ');");
+        lista.add("INSERT INTO Viestiketju (otsikko,nimimerkki) VALUES ( 'AIHE 2','TOISTA SISAÄLTÖÄ');");
+        lista.add("INSERT INTO Viestiketju (otsikko,nimimerkki) VALUES ( 'AIHE 2','TOISTA SISAÄLTÖÄ');");
+        lista.add("INSERT INTO Viestiketju (otsikko,nimimerkki) VALUES ( 'AIHE 2','TOISTA SISAÄLTÖÄ');");
+        lista.add("INSERT INTO Viestiketju (otsikko,nimimerkki) VALUES ( 'AIHE 2','TOISTA SISAÄLTÖÄ');");       
         return lista;
     }
 }
